@@ -1,4 +1,4 @@
-kivy
-opencv-python
+kivy==2.3.0
+Pillow
 numpy
-moviepy
+requests
