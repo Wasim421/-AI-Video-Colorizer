@@ -6,25 +6,29 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,prototxt,npy,txt
 version = 0.1
 
-# OpenCV এবং Numpy এর জন্য রিকোয়ারমেন্টস
-requirements = python3,kivy==2.3.0,opencv-python,numpy,requests,urllib3
+# রিকোয়ারমেন্টস (ভার্সন নির্দিষ্ট করে দেওয়া হলো স্ট্যাবিলিটির জন্য)
+requirements = python3,kivy==2.3.0,opencv-python,numpy,requests,urllib3,certifi
 
 orientation = portrait
 fullscreen = 0
 android.archs = arm64-v8a, armeabi-v7a
 
-# পারমিশন (ইন্টারনেট এবং স্টোরেজ)
+# পারমিশন
 android.permissions = INTERNET, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, MANAGE_EXTERNAL_STORAGE
 
-# অ্যান্ড্রয়েড এসডিকে সেটিংস
+# বিল্ড সেটিংস (খুবই গুরুত্বপূর্ণ)
 android.api = 33
 android.minapi = 21
 android.ndk = 25b
 android.accept_sdk_license = True
 android.skip_update = False
 
-# ফাইল ইনক্লুশন (বড় মডেল ফাইলটি যেহেতু ডাউনলোড হবে, তাই এখানে caffemodel বাদ দেওয়া হয়েছে)
-source.include_patterns = assets/*,*.prototxt,*.npy
+# বড় লাইব্রেরির জন্য মেমোরি এবং টাইমআউট সেটিংস
+android.entrypoint = main.py
+p4a.branch = master
+
+# গ্রাফিক্স এবং রিসোর্স
+source.include_patterns = *.prototxt,*.npy
 
 [buildozer]
 log_level = 2
