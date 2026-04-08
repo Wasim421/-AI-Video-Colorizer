@@ -49,19 +49,17 @@ class ColorizerApp(App):
             
             # প্রথমে মডেল চেক/ডাউনলোড করা হবে
             if self.download_models():
-                self.label.text = "প্রসেসিং শুরু হয়েছে... দয়া করে অপেক্ষা করুন।"
+                self.label.text = "প্রসেসিং শুরু হয়েছে... অপেক্ষা করুন।"
                 self.run_ai_logic(input_path, output_path)
         else:
             self.label.text = "দয়া করে একটি ভিডিও সিলেক্ট করুন!"
 
     def run_ai_logic(self, input_path, output_path):
-        # ফাইলের নামগুলো নিশ্চিত করা
         PROTOTXT = "colorization_deploy_v2.prototxt"
         MODEL = "colorization_release_v2.caffemodel"
         POINTS = "pts_in_hull.npy"
 
         try:
-            # AI মডেল লোড
             net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
             pts = np.load(POINTS)
 
@@ -72,7 +70,6 @@ class ColorizerApp(App):
             net.getLayer(conv8).blobs = [np.full([1, 313], 2.606, dtype="float32")]
 
             cap = cv2.VideoCapture(input_path)
-            # ভিডিওর ফ্রেম সাইজ পাওয়া
             width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
             
@@ -83,7 +80,6 @@ class ColorizerApp(App):
                 ret, frame = cap.read()
                 if not ret: break
 
-                # প্রসেসিং
                 scaled = frame.astype("float32") / 255.0
                 lab = cv2.cvtColor(scaled, cv2.COLOR_BGR2LAB)
                 resized = cv2.resize(lab, (224, 224))
@@ -103,10 +99,11 @@ class ColorizerApp(App):
 
             cap.release()
             out.release()
-            self.label.text = "সফল! ভিডিওটি গ্যালারিতে সেভ হয়েছে।"
+            self.label.text = "সফল! রঙিন ভিডিও সেভ হয়েছে।"
         
         except Exception as e:
             self.label.text = f"Error: {str(e)}"
 
 if __name__ == "__main__":
     ColorizerApp().run()
+                
