@@ -1,12 +1,12 @@
 [app]
-title = AI Colorizer Lite
-package.name = colorizerlite
+title = AI Colorizer
+package.name = colorizerwasim
 package.domain = org.wasim
 source.dir = .
 source.include_exts = py,png,jpg,kv,txt
 version = 0.1
 
-# OpenCV বাদ দিয়ে শুধু Pillow রাখা হয়েছে
+# প্রয়োজনীয় লাইব্রেরি (OpenCV ছাড়া, তাই খুব দ্রুত হবে)
 requirements = python3,kivy==2.3.0,Pillow,numpy,requests
 
 orientation = portrait
